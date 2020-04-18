@@ -1,0 +1,23 @@
+name: 'Find Comment'
+description: 'Find an issue or pull request comment'
+inputs:
+  token:
+    description: 'GITHUB_TOKEN or a repo scoped PAT.'
+    default: ${{ github.token }}
+  repository:
+    description: 'The full name of the repository containing the issue or pull request.'
+  issue-number:
+    description: 'The number of the issue or pull request in which to search.'
+  comment-author:
+    description: 'The GitHub user name of the comment author.'
+  body-includes:
+    description: 'A string to search for in the body of comments.'
+outputs:
+  comment-id:
+    description: 'The id of the first matching comment found.'
+runs:
+  using: 'node12'
+  main: 'dist/index.js'
+branding:
+  icon: 'search'  
+  color: 'gray-dark'

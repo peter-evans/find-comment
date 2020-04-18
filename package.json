@@ -1,0 +1,31 @@
+{
+  "name": "find-comment",
+  "version": "1.0.0",
+  "description": "Find an issue or pull request comment",
+  "main": "index.js",
+  "scripts": {
+    "lint": "eslint index.js",
+    "package": "ncc build index.js -o dist",
+    "test": "eslint index.js && jest --passWithNoTests"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/peter-evans/find-comment.git"
+  },
+  "keywords": [],
+  "author": "Peter Evans",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/peter-evans/find-comment/issues"
+  },
+  "homepage": "https://github.com/peter-evans/find-comment#readme",
+  "dependencies": {
+    "@actions/core": "^1.1.1",
+    "@actions/github": "^2.0.0"
+  },
+  "devDependencies": {
+    "@zeit/ncc": "0.22.1",
+    "eslint": "6.8.0",
+    "jest": "25.3.0"
+  }
+}
