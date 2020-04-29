@@ -543,7 +543,7 @@ async function run() {
       );
     });
 
-    core.setOutput("comment-id", comment.id);
+    core.setOutput("comment-id", comment.id.toString());
   } catch (error) {
     core.debug(inspect(error));
     core.setFailed(error.message);
