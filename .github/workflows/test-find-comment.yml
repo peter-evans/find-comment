@@ -33,3 +33,13 @@ jobs:
           body-includes: search string 1
       - if: steps.fc3.outputs.comment-id != 620947858
         run: exit 1
+
+      - name: No matching comment found
+        uses: ./
+        id: fc4
+        with:
+          issue-number: 1
+          # comment-author: peter-evans
+          # body-includes: search string 1
+      - if: steps.fc4.outputs.comment-id != ''
+        run: exit 1
