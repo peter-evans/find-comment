@@ -38,7 +38,11 @@ async function run() {
       );
     });
 
-    core.setOutput("comment-id", comment.id.toString());
+    if (comment) {
+      core.setOutput("comment-id", comment.id.toString());
+    } else {
+      core.setOutput("comment-id", "");
+    }
   } catch (error) {
     core.debug(inspect(error));
     core.setFailed(error.message);
