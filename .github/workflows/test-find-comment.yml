@@ -8,19 +8,19 @@ jobs:
 
       - name: Find Comment
         uses: ./
-        id: fc
+        id: fc1
         with:
           issue-number: 1
           body-includes: search string 1
-      - if: steps.fc.outputs.comment-id != 620947762
+      - if: steps.fc1.outputs.comment-id != 620947762
         run: exit 1
 
       - name: Find Comment
         uses: ./
-        id: fc
+        id: fc2
         with:
           issue-number: 1
           comment-author: peter-evans
           body-includes: search string 1
-      - if: steps.fc.outputs.comment-id != 620947858
+      - if: steps.fc2.outputs.comment-id != 620947858
         run: exit 1
