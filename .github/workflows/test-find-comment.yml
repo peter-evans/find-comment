@@ -11,8 +11,16 @@ jobs:
         id: fc
         with:
           issue-number: 1
+          body-includes: search string 1
+      - if: steps.fc.outputs.comment-id != 620947762
+        run: exit 1
+
+      - name: Find Comment
+        uses: ./
+        id: fc
+        with:
+          issue-number: 1
           comment-author: peter-evans
           body-includes: search string 1
-      - run: echo ${{ steps.fc.outputs.comment-id }}
       - if: steps.fc.outputs.comment-id != 620947858
         run: exit 1
