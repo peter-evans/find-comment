@@ -40,6 +40,6 @@ jobs:
         with:
           issue-number: 1
           # comment-author: peter-evans
-          # body-includes: search string 1
+          body-includes: this string will not be found
       - if: steps.fc4.outputs.comment-id != ''
         run: exit 1
