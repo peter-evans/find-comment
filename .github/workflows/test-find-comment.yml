@@ -6,7 +6,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: Find Comment
+      - name: Find comment by body-includes
         uses: ./
         id: fc1
         with:
@@ -15,12 +15,21 @@ jobs:
       - if: steps.fc1.outputs.comment-id != 620947762
         run: exit 1
 
-      - name: Find Comment
+      - name: Find comment by author
         uses: ./
         id: fc2
         with:
           issue-number: 1
+          comment-author: retepsnave
+      - if: steps.fc2.outputs.comment-id != 620947762
+        run: exit 1
+
+      - name: Find comment by body-includes and author
+        uses: ./
+        id: fc3
+        with:
+          issue-number: 1
           comment-author: peter-evans
           body-includes: search string 1
-      - if: steps.fc2.outputs.comment-id != 620947858
+      - if: steps.fc3.outputs.comment-id != 620947858
         run: exit 1
