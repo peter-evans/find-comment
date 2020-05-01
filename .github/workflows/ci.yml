@@ -23,9 +23,13 @@ jobs:
   test:
     needs: [build]
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        target: [built, committed]
     steps:
       - uses: actions/checkout@v2
-      - uses: actions/download-artifact@v2
+      - if: matrix.target == 'built'
+        uses: actions/download-artifact@v2
         with:
           name: dist
           path: dist
