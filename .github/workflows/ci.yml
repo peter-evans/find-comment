@@ -1,10 +1,34 @@
-name: Test Find Comment
-on: push
+name: CI
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
 jobs:
-  testFindComment:
+  build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 12.x
+      - run: npm ci
+      - run: npm run test
+      - run: npm run package
+      - uses: actions/upload-artifact@v2
+        with:
+          name: dist
+          path: dist
+
+  test:
+    needs: [build]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/download-artifact@v2
+        with:
+          name: dist
+          path: dist
 
       - name: Find comment by body-includes
         uses: ./
