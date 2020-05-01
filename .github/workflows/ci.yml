@@ -1,4 +1,4 @@
-name: Build & Test
+name: CI
 on:
   push:
     branches: [master]
@@ -15,12 +15,6 @@ jobs:
       - run: npm ci
       - run: npm run test
       - run: npm run package
-
-  testFindComment:
-    needs: [build]
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
 
       - name: Find comment by body-includes
         uses: ./
