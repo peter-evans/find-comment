@@ -25,6 +25,10 @@ jobs:
         with:
           name: dist
           path: dist
+      - uses: actions/upload-artifact@v2
+        with:
+          name: action.yml
+          path: action.yml
 
   test:
     needs: [build]
@@ -39,6 +43,11 @@ jobs:
         with:
           name: dist
           path: dist
+      - if: matrix.target == 'built' || github.event_name == 'pull_request'
+        uses: actions/download-artifact@v2
+        with:
+          name: action.yml
+          path: .
 
       - name: Find comment by body-includes
         uses: ./
