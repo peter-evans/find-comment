@@ -16,14 +16,14 @@ async function run() {
     const repository = inputs.repository
       ? inputs.repository
       : process.env.GITHUB_REPOSITORY;
-    const repo = repository.split("/");
+    const [owner, repo] = repository.split("/");
     core.debug(`repository: ${repository}`);
 
-    const octokit = new github.GitHub(inputs.token);
+    const octokit = github.getOctokit(inputs.token);
 
     const { data: comments } = await octokit.issues.listComments({
-      owner: repo[0],
-      repo: repo[1],
+      owner: owner,
+      repo: repo,
       issue_number: inputs.issueNumber,
     });
 
