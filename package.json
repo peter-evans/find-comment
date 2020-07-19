@@ -21,11 +21,11 @@
   "homepage": "https://github.com/peter-evans/find-comment#readme",
   "dependencies": {
     "@actions/core": "1.2.4",
-    "@actions/github": "3.0.0"
+    "@actions/github": "4.0.0"
   },
   "devDependencies": {
     "@zeit/ncc": "0.22.3",
-    "eslint": "7.1.0",
-    "jest": "26.0.1"
+    "eslint": "7.4.0",
+    "jest": "26.1.0"
   }
 }
