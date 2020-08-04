@@ -46,7 +46,7 @@ The action will output the comment ID of the first comment matching the search c
 
 | Name | Description | Default |
 | --- | --- | --- |
-| `token` | `GITHUB_TOKEN` or a `repo` scoped [PAT](https://help.github.com/en/github/authenticating-to-github/creating-a-personal-access-token-for-the-command-line). | `GITHUB_TOKEN` |
+| `token` | `GITHUB_TOKEN` or a `repo` scoped [PAT](https://docs.github.com/en/github/authenticating-to-github/creating-a-personal-access-token). | `GITHUB_TOKEN` |
 | `repository` | The full name of the repository containing the issue or pull request. | Current repository |
 | `issue-number` | The number of the issue or pull request in which to search. | |
 | `comment-author` | The GitHub user name of the comment author. | |
@@ -69,7 +69,7 @@ Note that in order to read the step output the action step must have an id.
 
 ### Accessing issues and pull requests in other repositories
 
-You can search the comments of issues and pull requests in another repository by using a [PAT](https://help.github.com/en/github/authenticating-to-github/creating-a-personal-access-token-for-the-command-line) instead of `GITHUB_TOKEN`.
+You can search the comments of issues and pull requests in another repository by using a [PAT](https://docs.github.com/en/github/authenticating-to-github/creating-a-personal-access-token) instead of `GITHUB_TOKEN`.
 
 ## License
 
