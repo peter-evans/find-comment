@@ -24,7 +24,7 @@
     "@actions/github": "4.0.0"
   },
   "devDependencies": {
-    "@zeit/ncc": "0.22.3",
+    "@vercel/ncc": "0.23.0",
     "eslint": "7.4.0",
     "jest": "26.1.0"
   }
