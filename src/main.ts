@@ -2,27 +2,33 @@ import * as core from '@actions/core'
 import * as github from '@actions/github'
 import {inspect} from 'util'
 
-async function run(): Promise<void> {
-  try {
-    const inputs = {
-      token: core.getInput('token'),
-      repository: core.getInput('repository'),
-      issueNumber: Number(core.getInput('issue-number')),
-      commentAuthor: core.getInput('comment-author'),
-      bodyIncludes: core.getInput('body-includes')
-    }
-    core.debug(`Inputs: ${inspect(inputs)}`)
+interface Inputs {
+  token: string
+  repository: string
+  issueNumber: number
+  commentAuthor: string
+  bodyIncludes: string
+}
 
-    const [owner, repo] = inputs.repository.split('/')
+interface Comment {
+  id: number
+  body: string
+}
 
-    const octokit = github.getOctokit(inputs.token)
+async function findComment(inputs: Inputs): Promise<Comment | undefined> {
+  const octokit = github.getOctokit(inputs.token)
+  const [owner, repo] = inputs.repository.split('/')
 
-    const {data: comments} = await octokit.issues.listComments({
-      owner: owner,
-      repo: repo,
-      issue_number: inputs.issueNumber
-    })
-
+  const parameters = {
+    owner: owner,
+    repo: repo,
+    issue_number: inputs.issueNumber
+  }
+  for await (const {data: comments} of octokit.paginate.iterator(
+    octokit.issues.listComments,
+    parameters
+  )) {
+    // Search each page for the comment
     const comment = comments.find(comment => {
       return (
         (inputs.commentAuthor
@@ -33,6 +39,28 @@ async function run(): Promise<void> {
           : true)
       )
     })
+    if (comment) {
+      return {
+        id: comment.id,
+        body: comment.body
+      }
+    }
+  }
+  return undefined
+}
+
+async function run(): Promise<void> {
+  try {
+    const inputs: Inputs = {
+      token: core.getInput('token'),
+      repository: core.getInput('repository'),
+      issueNumber: Number(core.getInput('issue-number')),
+      commentAuthor: core.getInput('comment-author'),
+      bodyIncludes: core.getInput('body-includes')
+    }
+    core.debug(`Inputs: ${inspect(inputs)}`)
+
+    const comment = await findComment(inputs)
 
     if (comment) {
       core.setOutput('comment-id', comment.id.toString())

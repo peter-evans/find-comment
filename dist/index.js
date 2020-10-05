@@ -35,10 +35,57 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __asyncValues = (this && this.__asyncValues) || function (o) {
+    if (!Symbol.asyncIterator) throw new TypeError("Symbol.asyncIterator is not defined.");
+    var m = o[Symbol.asyncIterator], i;
+    return m ? m.call(o) : (o = typeof __values === "function" ? __values(o) : o[Symbol.iterator](), i = {}, verb("next"), verb("throw"), verb("return"), i[Symbol.asyncIterator] = function () { return this; }, i);
+    function verb(n) { i[n] = o[n] && function (v) { return new Promise(function (resolve, reject) { v = o[n](v), settle(resolve, reject, v.done, v.value); }); }; }
+    function settle(resolve, reject, d, v) { Promise.resolve(v).then(function(v) { resolve({ value: v, done: d }); }, reject); }
+};
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 const core = __importStar(__webpack_require__(186));
 const github = __importStar(__webpack_require__(438));
 const util_1 = __webpack_require__(669);
+function findComment(inputs) {
+    var e_1, _a;
+    return __awaiter(this, void 0, void 0, function* () {
+        const octokit = github.getOctokit(inputs.token);
+        const [owner, repo] = inputs.repository.split('/');
+        const parameters = {
+            owner: owner,
+            repo: repo,
+            issue_number: inputs.issueNumber
+        };
+        try {
+            for (var _b = __asyncValues(octokit.paginate.iterator(octokit.issues.listComments, parameters)), _c; _c = yield _b.next(), !_c.done;) {
+                const { data: comments } = _c.value;
+                // Search each page for the comment
+                const comment = comments.find(comment => {
+                    return ((inputs.commentAuthor
+                        ? comment.user.login === inputs.commentAuthor
+                        : true) &&
+                        (inputs.bodyIncludes
+                            ? comment.body.includes(inputs.bodyIncludes)
+                            : true));
+                });
+                if (comment) {
+                    return {
+                        id: comment.id,
+                        body: comment.body
+                    };
+                }
+            }
+        }
+        catch (e_1_1) { e_1 = { error: e_1_1 }; }
+        finally {
+            try {
+                if (_c && !_c.done && (_a = _b.return)) yield _a.call(_b);
+            }
+            finally { if (e_1) throw e_1.error; }
+        }
+        return undefined;
+    });
+}
 function run() {
     return __awaiter(this, void 0, void 0, function* () {
         try {
@@ -50,26 +97,14 @@ function run() {
                 bodyIncludes: core.getInput('body-includes')
             };
             core.debug(`Inputs: ${util_1.inspect(inputs)}`);
-            const [owner, repo] = inputs.repository.split('/');
-            const octokit = github.getOctokit(inputs.token);
-            const { data: comments } = yield octokit.issues.listComments({
-                owner: owner,
-                repo: repo,
-                issue_number: inputs.issueNumber
-            });
-            const comment = comments.find(comment => {
-                return ((inputs.commentAuthor
-                    ? comment.user.login === inputs.commentAuthor
-                    : true) &&
-                    (inputs.bodyIncludes
-                        ? comment.body.includes(inputs.bodyIncludes)
-                        : true));
-            });
+            const comment = yield findComment(inputs);
             if (comment) {
                 core.setOutput('comment-id', comment.id.toString());
+                core.setOutput('comment-body', comment.body);
             }
             else {
                 core.setOutput('comment-id', '');
+                core.setOutput('comment-body', '');
             }
         }
         catch (error) {
