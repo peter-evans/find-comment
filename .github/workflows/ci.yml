@@ -57,6 +57,8 @@ jobs:
           body-includes: search string 1
       - if: steps.fc1.outputs.comment-id != 620947762
         run: exit 1
+      - if: steps.fc1.outputs.comment-body != 'search string 1'
+        run: exit 1
 
       - name: Find comment by author
         uses: ./
