@@ -19,8 +19,10 @@ jobs:
         with:
           node-version: 12.x
       - run: npm ci
+      - run: npm run build
+      - run: npm run format-check
+      - run: npm run lint
       - run: npm run test
-      - run: npm run package
       - uses: actions/upload-artifact@v2
         with:
           name: dist
@@ -102,7 +104,7 @@ jobs:
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v3
         with:
-          commit-message: Update distribution
+          commit-message: 'build: update distribution'
           title: Update distribution
           body: |
             - Updates the distribution for changes on `master`
