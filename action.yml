@@ -6,6 +6,7 @@ inputs:
     default: ${{ github.token }}
   repository:
     description: 'The full name of the repository containing the issue or pull request.'
+    default: ${{ github.repository }}
   issue-number:
     description: 'The number of the issue or pull request in which to search.'
   comment-author:

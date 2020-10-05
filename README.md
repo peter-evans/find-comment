@@ -47,7 +47,7 @@ The action will output the comment ID of the first comment matching the search c
 | Name | Description | Default |
 | --- | --- | --- |
 | `token` | `GITHUB_TOKEN` or a `repo` scoped [PAT](https://docs.github.com/en/github/authenticating-to-github/creating-a-personal-access-token). | `GITHUB_TOKEN` |
-| `repository` | The full name of the repository containing the issue or pull request. | Current repository |
+| `repository` | The full name of the repository containing the issue or pull request. | `github.repository` (Current repository) |
 | `issue-number` | The number of the issue or pull request in which to search. | |
 | `comment-author` | The GitHub user name of the comment author. | |
 | `body-includes` | A string to search for in the body of comments. | |
