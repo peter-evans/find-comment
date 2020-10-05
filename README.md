@@ -54,8 +54,8 @@ The action will output the comment ID of the first comment matching the search c
 
 #### Outputs
 
-The ID of the first matching comment found will be output for use in later steps.
-Note that in order to read the step output the action step must have an id.
+The `comment-id` and `comment-body` of the first matching comment found will be output for use in later steps.
+Note that in order to read the step outputs the action step must have an id.
 
 ```yml
       - name: Find Comment
@@ -64,7 +64,9 @@ Note that in order to read the step output the action step must have an id.
         with:
           issue-number: 1
           body-includes: search string 1
-      - run: echo ${{ steps.fc.outputs.comment-id }}
+      - run: |
+          echo ${{ steps.fc.outputs.comment-id }}
+          echo ${{ steps.fc.outputs.comment-body }}
 ```
 
 ### Accessing issues and pull requests in other repositories
