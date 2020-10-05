@@ -91,6 +91,15 @@ jobs:
       - if: steps.fc4.outputs.comment-id != ''
         run: exit 1
 
+      - name: Find comment by body-includes (requiring pagination)
+        uses: ./
+        id: fc5
+        with:
+          issue-number: 1
+          body-includes: search string 2
+      - if: steps.fc5.outputs.comment-id != 703343658
+        run: exit 1
+
   package:
     if: github.event_name == 'push' && github.ref == 'refs/heads/master'
     needs: [test]
