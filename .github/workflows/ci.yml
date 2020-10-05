@@ -100,6 +100,15 @@ jobs:
       - if: steps.fc5.outputs.comment-id != 703343658
         run: exit 1
 
+      - name: Find comment in merged PR
+        uses: ./
+        id: fc6
+        with:
+          issue-number: 4
+          body-includes: search string 3
+      - if: steps.fc6.outputs.comment-id != 703352283
+        run: exit 1
+
   package:
     if: github.event_name == 'push' && github.ref == 'refs/heads/master'
     needs: [test]
