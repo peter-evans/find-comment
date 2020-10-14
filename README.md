@@ -54,7 +54,7 @@ The action will output the comment ID of the first comment matching the search c
 
 #### Outputs
 
-The `comment-id` and `comment-body` of the first matching comment found will be output for use in later steps.
+The `comment-id` and `comment-body` of the first matching comment found will be output for use in later steps. They will be empty if no matching comment was found (equaling to `0` if checked by an expression, e.g. `steps.fc.outputs.comment-id == 0` will evaluate to True) . 
 Note that in order to read the step outputs the action step must have an id.
 
 ```yml
