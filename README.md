@@ -4,11 +4,11 @@
 
 A GitHub action to find an issue or pull request comment.
 
-The action will output the comment ID of the first comment matching the search criteria.
+The action will output the comment ID of the comment matching the search criteria.
 
 ## Usage
 
-### Find a comment containing the specified string
+### Find the first comment containing the specified string
 
 ```yml
       - name: Find Comment
@@ -19,7 +19,7 @@ The action will output the comment ID of the first comment matching the search c
           body-includes: search string 1
 ```
 
-### Find a comment by the specified author
+### Find the first comment by the specified author
 
 ```yml
       - name: Find Comment
@@ -30,7 +30,7 @@ The action will output the comment ID of the first comment matching the search c
           comment-author: peter-evans
 ```
 
-### Find a comment containing the specified string AND by the specified author
+### Find the first comment containing the specified string AND by the specified author
 
 ```yml
       - name: Find Comment
@@ -40,6 +40,18 @@ The action will output the comment ID of the first comment matching the search c
           issue-number: 1
           comment-author: peter-evans
           body-includes: search string 1
+```
+
+### Find the last comment containing the specified string
+
+```yml
+      - name: Find Comment
+        uses: peter-evans/find-comment@v1
+        id: fc
+        with:
+          issue-number: 1
+          body-includes: search string 1
+          direction: last
 ```
 
 ### Action inputs
@@ -51,10 +63,11 @@ The action will output the comment ID of the first comment matching the search c
 | `issue-number` | The number of the issue or pull request in which to search. | |
 | `comment-author` | The GitHub user name of the comment author. | |
 | `body-includes` | A string to search for in the body of comments. | |
+| `direction` | Search direction, specified as `first` or `last` | `first` |
 
 #### Outputs
 
-The `comment-id` and `comment-body` of the first matching comment found will be output for use in later steps.
+The `comment-id` and `comment-body` of the matching comment found will be output for use in later steps.
 They will be empty strings if no matching comment was found.
 Note that in order to read the step outputs the action step must have an id.
 

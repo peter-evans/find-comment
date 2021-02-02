@@ -46,6 +46,12 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 const core = __importStar(__webpack_require__(186));
 const github = __importStar(__webpack_require__(438));
 const util_1 = __webpack_require__(669);
+function findCommentPredicate(inputs, comment) {
+    return ((inputs.commentAuthor
+        ? comment.user.login === inputs.commentAuthor
+        : true) &&
+        (inputs.bodyIncludes ? comment.body.includes(inputs.bodyIncludes) : true));
+}
 function findComment(inputs) {
     var e_1, _a;
     return __awaiter(this, void 0, void 0, function* () {
@@ -56,32 +62,45 @@ function findComment(inputs) {
             repo: repo,
             issue_number: inputs.issueNumber
         };
-        try {
-            for (var _b = __asyncValues(octokit.paginate.iterator(octokit.issues.listComments, parameters)), _c; _c = yield _b.next(), !_c.done;) {
-                const { data: comments } = _c.value;
-                // Search each page for the comment
-                const comment = comments.find(comment => {
-                    return ((inputs.commentAuthor
-                        ? comment.user.login === inputs.commentAuthor
-                        : true) &&
-                        (inputs.bodyIncludes
-                            ? comment.body.includes(inputs.bodyIncludes)
-                            : true));
-                });
-                if (comment) {
-                    return {
-                        id: comment.id,
-                        body: comment.body
-                    };
+        if (inputs.direction == 'first') {
+            try {
+                for (var _b = __asyncValues(octokit.paginate.iterator(octokit.issues.listComments, parameters)), _c; _c = yield _b.next(), !_c.done;) {
+                    const { data: comments } = _c.value;
+                    // Search each page for the comment
+                    const comment = comments.find(comment => findCommentPredicate(inputs, comment));
+                    if (comment) {
+                        return {
+                            id: comment.id,
+                            body: comment.body,
+                            user: {
+                                login: comment.user.login
+                            }
+                        };
+                    }
                 }
             }
-        }
-        catch (e_1_1) { e_1 = { error: e_1_1 }; }
-        finally {
-            try {
-                if (_c && !_c.done && (_a = _b.return)) yield _a.call(_b);
+            catch (e_1_1) { e_1 = { error: e_1_1 }; }
+            finally {
+                try {
+                    if (_c && !_c.done && (_a = _b.return)) yield _a.call(_b);
+                }
+                finally { if (e_1) throw e_1.error; }
             }
-            finally { if (e_1) throw e_1.error; }
+        }
+        else {
+            // direction == 'last'
+            const comments = yield octokit.paginate(octokit.issues.listComments, parameters);
+            comments.reverse();
+            const comment = comments.find(comment => findCommentPredicate(inputs, comment));
+            if (comment) {
+                return {
+                    id: comment.id,
+                    body: comment.body,
+                    user: {
+                        login: comment.user.login
+                    }
+                };
+            }
         }
         return undefined;
     });
@@ -94,7 +113,8 @@ function run() {
                 repository: core.getInput('repository'),
                 issueNumber: Number(core.getInput('issue-number')),
                 commentAuthor: core.getInput('comment-author'),
-                bodyIncludes: core.getInput('body-includes')
+                bodyIncludes: core.getInput('body-includes'),
+                direction: core.getInput('direction')
             };
             core.debug(`Inputs: ${util_1.inspect(inputs)}`);
             const comment = yield findComment(inputs);

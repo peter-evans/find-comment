@@ -8,11 +8,24 @@ interface Inputs {
   issueNumber: number
   commentAuthor: string
   bodyIncludes: string
+  direction: string
 }
 
 interface Comment {
   id: number
   body: string
+  user: {
+    login: string
+  }
+}
+
+function findCommentPredicate(inputs: Inputs, comment: Comment): boolean {
+  return (
+    (inputs.commentAuthor
+      ? comment.user.login === inputs.commentAuthor
+      : true) &&
+    (inputs.bodyIncludes ? comment.body.includes(inputs.bodyIncludes) : true)
+  )
 }
 
 async function findComment(inputs: Inputs): Promise<Comment | undefined> {
@@ -24,25 +37,43 @@ async function findComment(inputs: Inputs): Promise<Comment | undefined> {
     repo: repo,
     issue_number: inputs.issueNumber
   }
-  for await (const {data: comments} of octokit.paginate.iterator(
-    octokit.issues.listComments,
-    parameters
-  )) {
-    // Search each page for the comment
-    const comment = comments.find(comment => {
-      return (
-        (inputs.commentAuthor
-          ? comment.user.login === inputs.commentAuthor
-          : true) &&
-        (inputs.bodyIncludes
-          ? comment.body.includes(inputs.bodyIncludes)
-          : true)
+
+  if (inputs.direction == 'first') {
+    for await (const {data: comments} of octokit.paginate.iterator(
+      octokit.issues.listComments,
+      parameters
+    )) {
+      // Search each page for the comment
+      const comment = comments.find(comment =>
+        findCommentPredicate(inputs, comment)
       )
-    })
+      if (comment) {
+        return {
+          id: comment.id,
+          body: comment.body,
+          user: {
+            login: comment.user.login
+          }
+        }
+      }
+    }
+  } else {
+    // direction == 'last'
+    const comments = await octokit.paginate(
+      octokit.issues.listComments,
+      parameters
+    )
+    comments.reverse()
+    const comment = comments.find(comment =>
+      findCommentPredicate(inputs, comment)
+    )
     if (comment) {
       return {
         id: comment.id,
-        body: comment.body
+        body: comment.body,
+        user: {
+          login: comment.user.login
+        }
       }
     }
   }
@@ -56,7 +87,8 @@ async function run(): Promise<void> {
       repository: core.getInput('repository'),
       issueNumber: Number(core.getInput('issue-number')),
       commentAuthor: core.getInput('comment-author'),
-      bodyIncludes: core.getInput('body-includes')
+      bodyIncludes: core.getInput('body-includes'),
+      direction: core.getInput('direction')
     }
     core.debug(`Inputs: ${inspect(inputs)}`)
 

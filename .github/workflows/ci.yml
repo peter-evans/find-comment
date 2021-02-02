@@ -109,6 +109,17 @@ jobs:
       - if: steps.fc6.outputs.comment-id != 703352283
         run: exit 1
 
+      - name: Find the last comment by body-includes and author
+        uses: ./
+        id: fc7
+        with:
+          issue-number: 1
+          comment-author: peter-evans
+          body-includes: search string 1
+          direction: last
+      - if: steps.fc7.outputs.comment-id != 771260630
+        run: exit 1
+
   package:
     if: github.event_name == 'push' && github.ref == 'refs/heads/master'
     needs: [test]
