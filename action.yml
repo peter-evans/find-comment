@@ -13,9 +13,12 @@ inputs:
     description: 'The GitHub user name of the comment author.'
   body-includes:
     description: 'A string to search for in the body of comments.'
+  direction:
+    description: 'Search direction, specified as `first` or `last`'
+    default: first
 outputs:
   comment-id:
-    description: 'The id of the first matching comment found.'
+    description: 'The id of the matching comment found.'
 runs:
   using: 'node12'
   main: 'dist/index.js'
