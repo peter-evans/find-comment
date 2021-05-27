@@ -13,18 +13,20 @@ interface Inputs {
 
 interface Comment {
   id: number
-  body: string
+  body?: string
   user: {
     login: string
-  }
+  } | null
 }
 
 function findCommentPredicate(inputs: Inputs, comment: Comment): boolean {
   return (
-    (inputs.commentAuthor
+    (inputs.commentAuthor && comment.user
       ? comment.user.login === inputs.commentAuthor
       : true) &&
-    (inputs.bodyIncludes ? comment.body.includes(inputs.bodyIncludes) : true)
+    (inputs.bodyIncludes && comment.body
+      ? comment.body.includes(inputs.bodyIncludes)
+      : true)
   )
 }
 
@@ -40,42 +42,26 @@ async function findComment(inputs: Inputs): Promise<Comment | undefined> {
 
   if (inputs.direction == 'first') {
     for await (const {data: comments} of octokit.paginate.iterator(
-      octokit.issues.listComments,
+      octokit.rest.issues.listComments,
       parameters
     )) {
       // Search each page for the comment
       const comment = comments.find(comment =>
         findCommentPredicate(inputs, comment)
       )
-      if (comment) {
-        return {
-          id: comment.id,
-          body: comment.body,
-          user: {
-            login: comment.user.login
-          }
-        }
-      }
+      if (comment) return comment
     }
   } else {
     // direction == 'last'
     const comments = await octokit.paginate(
-      octokit.issues.listComments,
+      octokit.rest.issues.listComments,
       parameters
     )
     comments.reverse()
     const comment = comments.find(comment =>
       findCommentPredicate(inputs, comment)
     )
-    if (comment) {
-      return {
-        id: comment.id,
-        body: comment.body,
-        user: {
-          login: comment.user.login
-        }
-      }
-    }
+    if (comment) return comment
   }
   return undefined
 }
