@@ -19,6 +19,10 @@ inputs:
 outputs:
   comment-id:
     description: 'The id of the matching comment found.'
+  comment-body:
+    description: 'The body of the matching comment found.'
+  comment-author:
+    description: 'The author of the matching comment found.'
 runs:
   using: 'node12'
   main: 'dist/index.js'
