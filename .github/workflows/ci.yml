@@ -61,6 +61,8 @@ jobs:
         run: exit 1
       - if: steps.fc1.outputs.comment-body != 'search string 1'
         run: exit 1
+      - if: steps.fc1.outputs.comment-author != 'retepsnave'
+        run: exit 1
 
       - name: Find comment by author
         uses: ./

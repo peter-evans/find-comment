@@ -67,7 +67,7 @@ The action will output the comment ID of the comment matching the search criteri
 
 #### Outputs
 
-The `comment-id` and `comment-body` of the matching comment found will be output for use in later steps.
+The `comment-id`, `comment-body` and `comment-author` of the matching comment found will be output for use in later steps.
 They will be empty strings if no matching comment was found.
 Note that in order to read the step outputs the action step must have an id.
 
@@ -84,6 +84,7 @@ e.g. If `comment-id` is an empty string `steps.fc.outputs.comment-id == 0` evalu
       - run: |
           echo ${{ steps.fc.outputs.comment-id }}
           echo ${{ steps.fc.outputs.comment-body }}
+          echo ${{ steps.fc.outputs.comment-author }}
 ```
 
 ### Accessing issues and pull requests in other repositories
