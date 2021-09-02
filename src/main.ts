@@ -89,7 +89,7 @@ async function run(): Promise<void> {
       core.setOutput('comment-body', '')
       core.setOutput('comment-author', '')
     }
-  } catch (error) {
+  } catch (error: any) {
     core.debug(inspect(error))
     core.setFailed(error.message)
   }
