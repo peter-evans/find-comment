@@ -24,7 +24,7 @@ outputs:
   comment-author:
     description: 'The author of the matching comment found.'
 runs:
-  using: 'node12'
+  using: 'node16'
   main: 'dist/index.js'
 branding:
   icon: 'search'  
