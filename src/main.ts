@@ -66,6 +66,11 @@ async function findComment(inputs: Inputs): Promise<Comment | undefined> {
   return undefined
 }
 
+function getErrorMessage(error: unknown) {
+  if (error instanceof Error) return error.message
+  return String(error)
+}
+
 async function run(): Promise<void> {
   try {
     const inputs: Inputs = {
@@ -89,9 +94,9 @@ async function run(): Promise<void> {
       core.setOutput('comment-body', '')
       core.setOutput('comment-author', '')
     }
-  } catch (error: any) {
+  } catch (error) {
     core.debug(inspect(error))
-    core.setFailed(error.message)
+    core.setFailed(getErrorMessage(error))
   }
 }
 
