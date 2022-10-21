@@ -92,6 +92,11 @@ function findComment(inputs) {
         return undefined;
     });
 }
+function getErrorMessage(error) {
+    if (error instanceof Error)
+        return error.message;
+    return String(error);
+}
 function run() {
     return __awaiter(this, void 0, void 0, function* () {
         try {
@@ -118,7 +123,7 @@ function run() {
         }
         catch (error) {
             core.debug((0, util_1.inspect)(error));
-            core.setFailed(error.message);
+            core.setFailed(getErrorMessage(error));
         }
     });
 }
