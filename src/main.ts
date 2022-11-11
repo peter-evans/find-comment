@@ -35,7 +35,7 @@ function findCommentPredicate(inputs: Inputs, comment: Comment): boolean {
 }
 
 function isMatchedRegex(body: string, regex: string): boolean {
-  return (body ? body.match(regex) !== null : false) || (!body ? false : false)
+  return (body ? body.match(regex) !== null : true) || (!body ? false : false)
 }
 
 async function findComment(inputs: Inputs): Promise<Comment | undefined> {
