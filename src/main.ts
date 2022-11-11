@@ -8,6 +8,7 @@ interface Inputs {
   issueNumber: number
   commentAuthor: string
   bodyIncludes: string
+  bodyRegex: string
   direction: string
 }
 
@@ -24,10 +25,17 @@ function findCommentPredicate(inputs: Inputs, comment: Comment): boolean {
     (inputs.commentAuthor && comment.user
       ? comment.user.login === inputs.commentAuthor
       : true) &&
-    (inputs.bodyIncludes && comment.body
+    ((inputs.bodyIncludes && comment.body
       ? comment.body.includes(inputs.bodyIncludes)
-      : true)
+      : true) ||
+      (inputs.bodyRegex && comment.body
+        ? isMatchedRegex(comment.body, inputs.bodyRegex)
+        : true))
   )
+}
+
+function isMatchedRegex(body: string, regex: string): boolean {
+  return (body ? body.match(regex) !== null : false) || (!body ? false : false)
 }
 
 async function findComment(inputs: Inputs): Promise<Comment | undefined> {

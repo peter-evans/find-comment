@@ -13,6 +13,8 @@ inputs:
     description: 'The GitHub user name of the comment author.'
   body-includes:
     description: 'A string to search for in the body of comments.'
+  body-regex:
+    description: 'A regular expression to search for in the body of comments.'
   direction:
     description: 'Search direction, specified as `first` or `last`'
     default: first
@@ -27,5 +29,5 @@ runs:
   using: 'node16'
   main: 'dist/index.js'
 branding:
-  icon: 'search'  
+  icon: 'search'
   color: 'gray-dark'
