@@ -42,6 +42,17 @@ The action will output the comment ID of the comment matching the search criteri
           body-includes: search string 1
 ```
 
+### Find the first comment matching the specified regular expression
+
+```yml
+      - name: Find Comment
+        uses: peter-evans/find-comment@v2
+        id: fc
+        with:
+          issue-number: 1
+          body-regex: '^.*search string 1.*$'
+```
+
 ### Find the last comment containing the specified string
 
 ```yml
@@ -63,6 +74,7 @@ The action will output the comment ID of the comment matching the search criteri
 | `issue-number` | The number of the issue or pull request in which to search. | |
 | `comment-author` | The GitHub user name of the comment author. | |
 | `body-includes` | A string to search for in the body of comments. | |
+| `body-regex` | A regular expression to search for in the body of comments. | |
 | `direction` | Search direction, specified as `first` or `last` | `first` |
 
 #### Outputs

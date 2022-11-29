@@ -9,7 +9,7 @@
     "format": "prettier --write '**/*.ts'",
     "format-check": "prettier --check '**/*.ts'",
     "lint": "eslint src/**/*.ts",
-    "test": "jest --passWithNoTests"
+    "test": "jest"
   },
   "repository": {
     "type": "git",
@@ -33,6 +33,7 @@
   "devDependencies": {
     "@types/jest": "^27.0.3",
     "@types/node": "^16.11.11",
+    "@typescript-eslint/eslint-plugin": "^5.42.1",
     "@typescript-eslint/parser": "^5.5.0",
     "@vercel/ncc": "^0.32.0",
     "eslint": "^8.3.0",

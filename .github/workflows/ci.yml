@@ -122,6 +122,15 @@ jobs:
       - if: steps.fc7.outputs.comment-id != 771260630
         run: exit 1
 
+      - name: Find comment by body-regex
+        uses: ./
+        id: fc8
+        with:
+          issue-number: 1
+          body-regex: '^.*search string 1.*$'
+      - if: steps.fc8.outputs.comment-id != 620947762
+        run: exit 1
+
   package:
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     needs: [test]
