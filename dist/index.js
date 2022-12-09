@@ -8,7 +8,11 @@
 
 var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
     if (k2 === undefined) k2 = k;
-    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
+    var desc = Object.getOwnPropertyDescriptor(m, k);
+    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+      desc = { enumerable: true, get: function() { return m[k]; } };
+    }
+    Object.defineProperty(o, k2, desc);
 }) : (function(o, m, k, k2) {
     if (k2 === undefined) k2 = k;
     o[k2] = m[k];
@@ -57,7 +61,7 @@ function findCommentPredicate(inputs, comment) {
 }
 exports.findCommentPredicate = findCommentPredicate;
 function findComment(inputs) {
-    var e_1, _a;
+    var _a, e_1, _b, _c;
     return __awaiter(this, void 0, void 0, function* () {
         const octokit = github.getOctokit(inputs.token);
         const [owner, repo] = inputs.repository.split('/');
@@ -68,18 +72,25 @@ function findComment(inputs) {
         };
         if (inputs.direction == 'first') {
             try {
-                for (var _b = __asyncValues(octokit.paginate.iterator(octokit.rest.issues.listComments, parameters)), _c; _c = yield _b.next(), !_c.done;) {
-                    const { data: comments } = _c.value;
-                    // Search each page for the comment
-                    const comment = comments.find(comment => findCommentPredicate(inputs, comment));
-                    if (comment)
-                        return comment;
+                for (var _d = true, _e = __asyncValues(octokit.paginate.iterator(octokit.rest.issues.listComments, parameters)), _f; _f = yield _e.next(), _a = _f.done, !_a;) {
+                    _c = _f.value;
+                    _d = false;
+                    try {
+                        const { data: comments } = _c;
+                        // Search each page for the comment
+                        const comment = comments.find(comment => findCommentPredicate(inputs, comment));
+                        if (comment)
+                            return comment;
+                    }
+                    finally {
+                        _d = true;
+                    }
                 }
             }
             catch (e_1_1) { e_1 = { error: e_1_1 }; }
             finally {
                 try {
-                    if (_c && !_c.done && (_a = _b.return)) yield _a.call(_b);
+                    if (!_d && !_a && (_b = _e.return)) yield _b.call(_e);
                 }
                 finally { if (e_1) throw e_1.error; }
             }
@@ -107,7 +118,11 @@ exports.findComment = findComment;
 
 var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
     if (k2 === undefined) k2 = k;
-    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
+    var desc = Object.getOwnPropertyDescriptor(m, k);
+    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+      desc = { enumerable: true, get: function() { return m[k]; } };
+    }
+    Object.defineProperty(o, k2, desc);
 }) : (function(o, m, k, k2) {
     if (k2 === undefined) k2 = k;
     o[k2] = m[k];
