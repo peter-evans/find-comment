@@ -79,7 +79,7 @@ The action will output the comment ID of the comment matching the search criteri
 
 #### Outputs
 
-The `comment-id`, `comment-body` and `comment-author` of the matching comment found will be output for use in later steps.
+The `comment-id`, `comment-body`, `comment-author` and `comment-date` of the matching comment found will be output for use in later steps.
 They will be empty strings if no matching comment was found.
 Note that in order to read the step outputs the action step must have an id.
 
