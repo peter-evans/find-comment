@@ -1,4 +1,4 @@
-import {findCommentPredicate} from '../lib/find'
+import {findCommentPredicate} from '../src/find'
 
 describe('find comment tests', () => {
   test('find by bodyIncludes', async () => {
@@ -16,7 +16,8 @@ describe('find comment tests', () => {
         {
           id: 1,
           body: `Toto, I've a feeling we're not in Kansas anymore.`,
-          user: {login: 'dorothy'}
+          user: {login: 'dorothy'},
+          created_at: '2020-01-01T00:00:00Z'
         }
       )
     ).toEqual(true)
@@ -35,7 +36,8 @@ describe('find comment tests', () => {
         {
           id: 1,
           body: `Toto, I've a feeling we're not in Kansas anymore.`,
-          user: {login: 'dorothy'}
+          user: {login: 'dorothy'},
+          created_at: '2020-01-01T00:00:00Z'
         }
       )
     ).toEqual(false)
@@ -56,7 +58,8 @@ describe('find comment tests', () => {
         {
           id: 1,
           body: `Toto, I've a feeling we're not in Kansas anymore.`,
-          user: {login: 'dorothy'}
+          user: {login: 'dorothy'},
+          created_at: '2020-01-01T00:00:00Z'
         }
       )
     ).toEqual(true)
@@ -75,7 +78,8 @@ describe('find comment tests', () => {
         {
           id: 1,
           body: `Toto, I've a feeling we're not in Kansas anymore.`,
-          user: {login: 'dorothy'}
+          user: {login: 'dorothy'},
+          created_at: '2020-01-01T00:00:00Z'
         }
       )
     ).toEqual(false)
@@ -96,7 +100,8 @@ describe('find comment tests', () => {
         {
           id: 1,
           body: `Toto, I've a feeling we're not in Kansas anymore.`,
-          user: {login: 'dorothy'}
+          user: {login: 'dorothy'},
+          created_at: '2020-01-01T00:00:00Z'
         }
       )
     ).toEqual(true)
@@ -115,7 +120,8 @@ describe('find comment tests', () => {
         {
           id: 1,
           body: `Toto, I've a feeling we're not in Kansas anymore.`,
-          user: {login: 'dorothy'}
+          user: {login: 'dorothy'},
+          created_at: '2020-01-01T00:00:00Z'
         }
       )
     ).toEqual(false)
@@ -136,7 +142,8 @@ describe('find comment tests', () => {
         {
           id: 1,
           body: `Toto, I've a feeling we're not in Kansas anymore.`,
-          user: {login: 'dorothy'}
+          user: {login: 'dorothy'},
+          created_at: '2020-01-01T00:00:00Z'
         }
       )
     ).toEqual(true)
@@ -155,7 +162,8 @@ describe('find comment tests', () => {
         {
           id: 1,
           body: `Toto, I've a feeling we're not in Kansas anymore.`,
-          user: {login: 'dorothy'}
+          user: {login: 'dorothy'},
+          created_at: '2020-01-01T00:00:00Z'
         }
       )
     ).toEqual(false)
@@ -174,7 +182,8 @@ describe('find comment tests', () => {
         {
           id: 1,
           body: `Toto, I've a feeling we're not in Kansas anymore.`,
-          user: {login: 'dorothy'}
+          user: {login: 'dorothy'},
+          created_at: '2020-01-01T00:00:00Z'
         }
       )
     ).toEqual(false)
@@ -195,7 +204,8 @@ describe('find comment tests', () => {
         {
           id: 1,
           body: `Toto, I've a feeling we're not in Kansas anymore.`,
-          user: {login: 'dorothy'}
+          user: {login: 'dorothy'},
+          created_at: '2020-01-01T00:00:00Z'
         }
       )
     ).toEqual(true)
@@ -214,7 +224,8 @@ describe('find comment tests', () => {
         {
           id: 1,
           body: `Toto, I've a feeling we're not in Kansas anymore.`,
-          user: {login: 'dorothy'}
+          user: {login: 'dorothy'},
+          created_at: '2020-01-01T00:00:00Z'
         }
       )
     ).toEqual(false)
@@ -233,7 +244,8 @@ describe('find comment tests', () => {
         {
           id: 1,
           body: `Toto, I've a feeling we're not in Kansas anymore.`,
-          user: {login: 'dorothy'}
+          user: {login: 'dorothy'},
+          created_at: '2020-01-01T00:00:00Z'
         }
       )
     ).toEqual(false)
@@ -254,7 +266,8 @@ describe('find comment tests', () => {
         {
           id: 1,
           body: `Toto, I've a feeling we're not in Kansas anymore.`,
-          user: {login: 'dorothy'}
+          user: {login: 'dorothy'},
+          created_at: '2020-01-01T00:00:00Z'
         }
       )
     ).toEqual(true)
