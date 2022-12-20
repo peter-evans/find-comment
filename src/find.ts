@@ -16,6 +16,7 @@ export interface Comment {
   user: {
     login: string
   } | null
+  created_at: string
 }
 
 export function findCommentPredicate(
