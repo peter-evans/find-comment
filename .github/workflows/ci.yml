@@ -128,7 +128,7 @@ jobs:
         id: fc8
         with:
           issue-number: 1
-          body-regex: '^.*search string 1.*$'
+          body-regex: '/^.*SeArCh StRiNg 1.*$/ig'
       - if: steps.fc8.outputs.comment-id != 620947762
         run: exit 1
 
