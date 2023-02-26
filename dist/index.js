@@ -48,6 +48,13 @@ var __asyncValues = (this && this.__asyncValues) || function (o) {
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.findComment = exports.findCommentPredicate = void 0;
 const github = __importStar(__nccwpck_require__(5438));
+function stringToRegex(s) {
+    const m = s.match(/^(.)(.*?)\1([gimsuy]*)$/);
+    if (m)
+        return new RegExp(m[2], m[3]);
+    else
+        return new RegExp(s);
+}
 function findCommentPredicate(inputs, comment) {
     return ((inputs.commentAuthor && comment.user
         ? comment.user.login === inputs.commentAuthor
@@ -56,7 +63,7 @@ function findCommentPredicate(inputs, comment) {
             ? comment.body.includes(inputs.bodyIncludes)
             : true) &&
         (inputs.bodyRegex && comment.body
-            ? comment.body.match(inputs.bodyRegex) !== null
+            ? comment.body.match(stringToRegex(inputs.bodyRegex)) !== null
             : true));
 }
 exports.findCommentPredicate = findCommentPredicate;

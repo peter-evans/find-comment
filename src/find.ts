@@ -19,6 +19,12 @@ export interface Comment {
   created_at: string
 }
 
+function stringToRegex(s: string): RegExp {
+  const m = s.match(/^(.)(.*?)\1([gimsuy]*)$/)
+  if (m) return new RegExp(m[2], m[3])
+  else return new RegExp(s)
+}
+
 export function findCommentPredicate(
   inputs: Inputs,
   comment: Comment
@@ -31,7 +37,7 @@ export function findCommentPredicate(
       ? comment.body.includes(inputs.bodyIncludes)
       : true) &&
     (inputs.bodyRegex && comment.body
-      ? comment.body.match(inputs.bodyRegex) !== null
+      ? comment.body.match(stringToRegex(inputs.bodyRegex)) !== null
       : true)
   )
 }
