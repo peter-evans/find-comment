@@ -218,6 +218,26 @@ describe('find comment tests', () => {
           issueNumber: 1,
           commentAuthor: 'dorothy',
           bodyIncludes: '',
+          bodyRegex: '/^.*KaNsAs.*$/i',
+          direction: 'direction'
+        },
+        {
+          id: 1,
+          body: `Toto, I've a feeling we're not in Kansas anymore.`,
+          user: {login: 'dorothy'},
+          created_at: '2020-01-01T00:00:00Z'
+        }
+      )
+    ).toEqual(true)
+
+    expect(
+      findCommentPredicate(
+        {
+          token: 'token',
+          repository: 'repository',
+          issueNumber: 1,
+          commentAuthor: 'dorothy',
+          bodyIncludes: '',
           bodyRegex: '^.*not-exist.*$',
           direction: 'direction'
         },
