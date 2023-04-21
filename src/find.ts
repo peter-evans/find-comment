@@ -8,6 +8,7 @@ export interface Inputs {
   bodyIncludes: string
   bodyRegex: string
   direction: string
+  nth: number
 }
 
 export interface Comment {
@@ -54,17 +55,21 @@ export async function findComment(
     issue_number: inputs.issueNumber
   }
 
-  const comments = await octokit.paginate(
+  const allComments = await octokit.paginate(
     octokit.rest.issues.listComments,
     parameters
   )
   if (inputs.direction == 'last') {
-    comments.reverse()
+    allComments.reverse()
   }
-  const comment = comments.find(comment =>
+  const matchingComments = allComments.filter(comment =>
     findCommentPredicate(inputs, comment)
   )
-  if (comment) return comment
+
+  const comment = matchingComments[inputs.nth]
+  if (comment) {
+    return comment
+  }
 
   return undefined
 }

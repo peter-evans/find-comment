@@ -16,7 +16,8 @@ async function run(): Promise<void> {
       commentAuthor: core.getInput('comment-author'),
       bodyIncludes: core.getInput('body-includes'),
       bodyRegex: core.getInput('body-regex'),
-      direction: core.getInput('direction')
+      direction: core.getInput('direction'),
+      nth: Number(core.getInput('nth'))
     }
     core.debug(`Inputs: ${inspect(inputs)}`)
 

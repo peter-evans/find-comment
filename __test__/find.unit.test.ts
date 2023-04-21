@@ -11,7 +11,8 @@ describe('find comment tests', () => {
           commentAuthor: '',
           bodyIncludes: 'Kansas',
           bodyRegex: '',
-          direction: 'direction'
+          direction: 'direction',
+          nth: 0
         },
         {
           id: 1,
@@ -31,7 +32,8 @@ describe('find comment tests', () => {
           commentAuthor: '',
           bodyIncludes: 'not-exist',
           bodyRegex: '',
-          direction: 'direction'
+          direction: 'direction',
+          nth: 0
         },
         {
           id: 1,
@@ -53,7 +55,8 @@ describe('find comment tests', () => {
           commentAuthor: '',
           bodyIncludes: '',
           bodyRegex: '^.*Kansas.*$',
-          direction: 'direction'
+          direction: 'direction',
+          nth: 0
         },
         {
           id: 1,
@@ -73,7 +76,8 @@ describe('find comment tests', () => {
           commentAuthor: '',
           bodyIncludes: '',
           bodyRegex: '^.*not-exist.*$',
-          direction: 'direction'
+          direction: 'direction',
+          nth: 0
         },
         {
           id: 1,
@@ -95,7 +99,8 @@ describe('find comment tests', () => {
           commentAuthor: 'dorothy',
           bodyIncludes: '',
           bodyRegex: '',
-          direction: 'direction'
+          direction: 'direction',
+          nth: 0
         },
         {
           id: 1,
@@ -115,7 +120,8 @@ describe('find comment tests', () => {
           commentAuthor: 'toto',
           bodyIncludes: '',
           bodyRegex: '',
-          direction: 'direction'
+          direction: 'direction',
+          nth: 0
         },
         {
           id: 1,
@@ -137,7 +143,8 @@ describe('find comment tests', () => {
           commentAuthor: 'dorothy',
           bodyIncludes: 'Kansas',
           bodyRegex: '',
-          direction: 'direction'
+          direction: 'direction',
+          nth: 0
         },
         {
           id: 1,
@@ -157,7 +164,8 @@ describe('find comment tests', () => {
           commentAuthor: 'dorothy',
           bodyIncludes: 'not-exist',
           bodyRegex: '',
-          direction: 'direction'
+          direction: 'direction',
+          nth: 0
         },
         {
           id: 1,
@@ -177,7 +185,8 @@ describe('find comment tests', () => {
           commentAuthor: 'toto',
           bodyIncludes: 'Kansas',
           bodyRegex: '',
-          direction: 'direction'
+          direction: 'direction',
+          nth: 0
         },
         {
           id: 1,
@@ -199,7 +208,8 @@ describe('find comment tests', () => {
           commentAuthor: 'dorothy',
           bodyIncludes: '',
           bodyRegex: '^.*Kansas.*$',
-          direction: 'direction'
+          direction: 'direction',
+          nth: 0
         },
         {
           id: 1,
@@ -219,7 +229,8 @@ describe('find comment tests', () => {
           commentAuthor: 'dorothy',
           bodyIncludes: '',
           bodyRegex: '/^.*KaNsAs.*$/i',
-          direction: 'direction'
+          direction: 'direction',
+          nth: 0
         },
         {
           id: 1,
@@ -239,7 +250,8 @@ describe('find comment tests', () => {
           commentAuthor: 'dorothy',
           bodyIncludes: '',
           bodyRegex: '^.*not-exist.*$',
-          direction: 'direction'
+          direction: 'direction',
+          nth: 0
         },
         {
           id: 1,
@@ -259,7 +271,8 @@ describe('find comment tests', () => {
           commentAuthor: 'toto',
           bodyIncludes: '',
           bodyRegex: '^.*Kansas.*$',
-          direction: 'direction'
+          direction: 'direction',
+          nth: 0
         },
         {
           id: 1,
@@ -281,7 +294,8 @@ describe('find comment tests', () => {
           commentAuthor: 'dorothy',
           bodyIncludes: 'feeling',
           bodyRegex: '^.*Kansas.*$',
-          direction: 'direction'
+          direction: 'direction',
+          nth: 0
         },
         {
           id: 1,
