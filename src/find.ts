@@ -64,7 +64,7 @@ export async function findComment(
   const comment = comments.find(comment =>
     findCommentPredicate(inputs, comment)
   )
-  if (comment) return comment;
-  
+  if (comment) return comment
+
   return undefined
 }
