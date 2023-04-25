@@ -54,28 +54,17 @@ export async function findComment(
     issue_number: inputs.issueNumber
   }
 
-  if (inputs.direction == 'first') {
-    for await (const {data: comments} of octokit.paginate.iterator(
-      octokit.rest.issues.listComments,
-      parameters
-    )) {
-      // Search each page for the comment
-      const comment = comments.find(comment =>
-        findCommentPredicate(inputs, comment)
-      )
-      if (comment) return comment
-    }
-  } else {
-    // direction == 'last'
-    const comments = await octokit.paginate(
-      octokit.rest.issues.listComments,
-      parameters
-    )
+  const comments = await octokit.paginate(
+    octokit.rest.issues.listComments,
+    parameters
+  )
+  if (inputs.direction == 'last') {
     comments.reverse()
-    const comment = comments.find(comment =>
-      findCommentPredicate(inputs, comment)
-    )
-    if (comment) return comment
   }
+  const comment = comments.find(comment =>
+    findCommentPredicate(inputs, comment)
+  )
+  if (comment) return comment
+
   return undefined
 }
