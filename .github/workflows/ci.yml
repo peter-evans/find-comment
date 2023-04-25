@@ -132,6 +132,16 @@ jobs:
       - if: steps.fc8.outputs.comment-id != 620947762
         run: exit 1
 
+      - name: Find nth comment by body-includes
+        uses: ./
+        id: fc9
+        with:
+          issue-number: 1
+          body-includes: comment 1
+          nth: 2
+      - if: steps.fc9.outputs.comment-id != 703343294
+        run: exit 1
+
   package:
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     needs: [test]
