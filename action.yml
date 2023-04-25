@@ -18,6 +18,9 @@ inputs:
   direction:
     description: 'Search direction, specified as `first` or `last`'
     default: first
+  nth:
+    description: '0-indexed number, specifying which comment to return if multiple are found'
+    default: 0
 outputs:
   comment-id:
     description: 'The id of the matching comment found.'
