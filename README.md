@@ -65,6 +65,18 @@ The action will output the comment ID of the comment matching the search criteri
           direction: last
 ```
 
+### Find the nth comment containing the specified string
+
+```yml
+      - name: Find Comment
+        uses: peter-evans/find-comment@v2
+        id: fc
+        with:
+          issue-number: 1
+          body-includes: search string 1
+          nth: 1 # second matching comment (0-indexed)
+```
+
 ### Action inputs
 
 | Name | Description | Default |
