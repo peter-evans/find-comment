@@ -38,13 +38,6 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-var __asyncValues = (this && this.__asyncValues) || function (o) {
-    if (!Symbol.asyncIterator) throw new TypeError("Symbol.asyncIterator is not defined.");
-    var m = o[Symbol.asyncIterator], i;
-    return m ? m.call(o) : (o = typeof __values === "function" ? __values(o) : o[Symbol.iterator](), i = {}, verb("next"), verb("throw"), verb("return"), i[Symbol.asyncIterator] = function () { return this; }, i);
-    function verb(n) { i[n] = o[n] && function (v) { return new Promise(function (resolve, reject) { v = o[n](v), settle(resolve, reject, v.done, v.value); }); }; }
-    function settle(resolve, reject, d, v) { Promise.resolve(v).then(function(v) { resolve({ value: v, done: d }); }, reject); }
-};
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.findComment = exports.findCommentPredicate = void 0;
 const github = __importStar(__nccwpck_require__(5438));
@@ -68,7 +61,6 @@ function findCommentPredicate(inputs, comment) {
 }
 exports.findCommentPredicate = findCommentPredicate;
 function findComment(inputs) {
-    var _a, e_1, _b, _c;
     return __awaiter(this, void 0, void 0, function* () {
         const octokit = github.getOctokit(inputs.token);
         const [owner, repo] = inputs.repository.split('/');
@@ -77,39 +69,13 @@ function findComment(inputs) {
             repo: repo,
             issue_number: inputs.issueNumber
         };
-        if (inputs.direction == 'first') {
-            try {
-                for (var _d = true, _e = __asyncValues(octokit.paginate.iterator(octokit.rest.issues.listComments, parameters)), _f; _f = yield _e.next(), _a = _f.done, !_a;) {
-                    _c = _f.value;
-                    _d = false;
-                    try {
-                        const { data: comments } = _c;
-                        // Search each page for the comment
-                        const comment = comments.find(comment => findCommentPredicate(inputs, comment));
-                        if (comment)
-                            return comment;
-                    }
-                    finally {
-                        _d = true;
-                    }
-                }
-            }
-            catch (e_1_1) { e_1 = { error: e_1_1 }; }
-            finally {
-                try {
-                    if (!_d && !_a && (_b = _e.return)) yield _b.call(_e);
-                }
-                finally { if (e_1) throw e_1.error; }
-            }
-        }
-        else {
-            // direction == 'last'
-            const comments = yield octokit.paginate(octokit.rest.issues.listComments, parameters);
+        const comments = yield octokit.paginate(octokit.rest.issues.listComments, parameters);
+        if (inputs.direction == 'last') {
             comments.reverse();
-            const comment = comments.find(comment => findCommentPredicate(inputs, comment));
-            if (comment)
-                return comment;
         }
+        const comment = comments.find(comment => findCommentPredicate(inputs, comment));
+        if (comment)
+            return comment;
         return undefined;
     });
 }
