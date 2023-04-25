@@ -76,6 +76,7 @@ The action will output the comment ID of the comment matching the search criteri
 | `body-includes` | A string to search for in the body of comments. | |
 | `body-regex` | A regular expression to search for in the body of comments. | |
 | `direction` | Search direction, specified as `first` or `last` | `first` |
+| `nth` | 0-indexed number, specifying which comment to return if multiple are found | 0 |
 
 #### Outputs
 
