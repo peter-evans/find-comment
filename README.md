@@ -65,6 +65,18 @@ The action will output the comment ID of the comment matching the search criteri
           direction: last
 ```
 
+### Find the nth comment containing the specified string
+
+```yml
+      - name: Find Comment
+        uses: peter-evans/find-comment@v2
+        id: fc
+        with:
+          issue-number: 1
+          body-includes: search string 1
+          nth: 1 # second matching comment (0-indexed)
+```
+
 ### Action inputs
 
 | Name | Description | Default |
@@ -76,6 +88,7 @@ The action will output the comment ID of the comment matching the search criteri
 | `body-includes` | A string to search for in the body of comments. | |
 | `body-regex` | A regular expression to search for in the body of comments. | |
 | `direction` | Search direction, specified as `first` or `last` | `first` |
+| `nth` | 0-indexed number, specifying which comment to return if multiple are found | 0 |
 
 #### Outputs
 

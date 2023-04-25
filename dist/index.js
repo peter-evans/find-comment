@@ -39,7 +39,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.findComment = exports.findCommentPredicate = void 0;
+exports.findComment = exports.findMatchingComment = exports.findCommentPredicate = void 0;
 const github = __importStar(__nccwpck_require__(5438));
 function stringToRegex(s) {
     const m = s.match(/^(.)(.*?)\1([gimsuy]*)$/);
@@ -47,6 +47,17 @@ function stringToRegex(s) {
         return new RegExp(m[2], m[3]);
     else
         return new RegExp(s);
+}
+function fetchComments(inputs) {
+    return __awaiter(this, void 0, void 0, function* () {
+        const octokit = github.getOctokit(inputs.token);
+        const [owner, repo] = inputs.repository.split('/');
+        return yield octokit.paginate(octokit.rest.issues.listComments, {
+            owner: owner,
+            repo: repo,
+            issue_number: inputs.issueNumber
+        });
+    });
 }
 function findCommentPredicate(inputs, comment) {
     return ((inputs.commentAuthor && comment.user
@@ -60,23 +71,22 @@ function findCommentPredicate(inputs, comment) {
             : true));
 }
 exports.findCommentPredicate = findCommentPredicate;
+function findMatchingComment(inputs, comments) {
+    if (inputs.direction == 'last') {
+        comments.reverse();
+    }
+    const matchingComments = comments.filter(comment => findCommentPredicate(inputs, comment));
+    const comment = matchingComments[inputs.nth];
+    if (comment) {
+        return comment;
+    }
+    return undefined;
+}
+exports.findMatchingComment = findMatchingComment;
 function findComment(inputs) {
     return __awaiter(this, void 0, void 0, function* () {
-        const octokit = github.getOctokit(inputs.token);
-        const [owner, repo] = inputs.repository.split('/');
-        const parameters = {
-            owner: owner,
-            repo: repo,
-            issue_number: inputs.issueNumber
-        };
-        const comments = yield octokit.paginate(octokit.rest.issues.listComments, parameters);
-        if (inputs.direction == 'last') {
-            comments.reverse();
-        }
-        const comment = comments.find(comment => findCommentPredicate(inputs, comment));
-        if (comment)
-            return comment;
-        return undefined;
+        const comments = yield fetchComments(inputs);
+        return findMatchingComment(inputs, comments);
     });
 }
 exports.findComment = findComment;
@@ -140,7 +150,8 @@ function run() {
                 commentAuthor: core.getInput('comment-author'),
                 bodyIncludes: core.getInput('body-includes'),
                 bodyRegex: core.getInput('body-regex'),
-                direction: core.getInput('direction')
+                direction: core.getInput('direction'),
+                nth: Number(core.getInput('nth'))
             };
             core.debug(`Inputs: ${(0, util_1.inspect)(inputs)}`);
             const comment = yield (0, find_1.findComment)(inputs);

@@ -8,6 +8,7 @@ export interface Inputs {
   bodyIncludes: string
   bodyRegex: string
   direction: string
+  nth: number
 }
 
 export interface Comment {
@@ -23,6 +24,16 @@ function stringToRegex(s: string): RegExp {
   const m = s.match(/^(.)(.*?)\1([gimsuy]*)$/)
   if (m) return new RegExp(m[2], m[3])
   else return new RegExp(s)
+}
+
+async function fetchComments(inputs: Inputs): Promise<Comment[]> {
+  const octokit = github.getOctokit(inputs.token)
+  const [owner, repo] = inputs.repository.split('/')
+  return await octokit.paginate(octokit.rest.issues.listComments, {
+    owner: owner,
+    repo: repo,
+    issue_number: inputs.issueNumber
+  })
 }
 
 export function findCommentPredicate(
@@ -42,29 +53,26 @@ export function findCommentPredicate(
   )
 }
 
-export async function findComment(
-  inputs: Inputs
-): Promise<Comment | undefined> {
-  const octokit = github.getOctokit(inputs.token)
-  const [owner, repo] = inputs.repository.split('/')
-
-  const parameters = {
-    owner: owner,
-    repo: repo,
-    issue_number: inputs.issueNumber
-  }
-
-  const comments = await octokit.paginate(
-    octokit.rest.issues.listComments,
-    parameters
-  )
+export function findMatchingComment(
+  inputs: Inputs,
+  comments: Comment[]
+): Comment | undefined {
   if (inputs.direction == 'last') {
     comments.reverse()
   }
-  const comment = comments.find(comment =>
+  const matchingComments = comments.filter(comment =>
     findCommentPredicate(inputs, comment)
   )
-  if (comment) return comment
-
+  const comment = matchingComments[inputs.nth]
+  if (comment) {
+    return comment
+  }
   return undefined
+}
+
+export async function findComment(
+  inputs: Inputs
+): Promise<Comment | undefined> {
+  const comments = await fetchComments(inputs)
+  return findMatchingComment(inputs, comments)
 }
