@@ -4,6 +4,9 @@
   "private": true,
   "description": "Find an issue or pull request comment",
   "main": "lib/main.js",
+  "engines": {
+    "node": "^20"
+  },
   "scripts": {
     "build": "tsc && ncc build",
     "format": "prettier --write '**/*.ts'",
