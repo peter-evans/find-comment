@@ -29,7 +29,7 @@ outputs:
   comment-author:
     description: 'The author of the matching comment found.'
 runs:
-  using: 'node16'
+  using: 'node20'
   main: 'dist/index.js'
 branding:
   icon: 'search'
