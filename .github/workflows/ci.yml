@@ -60,6 +60,8 @@ jobs:
           body-includes: search string 1
       - if: steps.fc1.outputs.comment-id != 620947762
         run: exit 1
+      - if: steps.fc1.outputs.comment-node-id != 'MDEyOklzc3VlQ29tbWVudDYyMDk0Nzc2Mg=='
+        run: exit 1
       - if: steps.fc1.outputs.comment-body != 'search string 1'
         run: exit 1
       - if: steps.fc1.outputs.comment-author != 'retepsnave'
@@ -73,6 +75,8 @@ jobs:
           comment-author: retepsnave
       - if: steps.fc2.outputs.comment-id != 620947762
         run: exit 1
+      - if: steps.fc2.outputs.comment-node-id != 'MDEyOklzc3VlQ29tbWVudDYyMDk0Nzc2Mg=='
+        run: exit 1
 
       - name: Find comment by body-includes and author
         uses: ./
@@ -82,6 +86,8 @@ jobs:
           comment-author: peter-evans
           body-includes: search string 1
       - if: steps.fc3.outputs.comment-id != 620947858
+        run: exit 1
+      - if: steps.fc3.outputs.comment-node-id != 'MDEyOklzc3VlQ29tbWVudDYyMDk0Nzg1OA=='
         run: exit 1
 
       - name: No matching comment found
@@ -93,6 +99,8 @@ jobs:
           body-includes: this string will not be found
       - if: steps.fc4.outputs.comment-id != ''
         run: exit 1
+      - if: steps.fc4.outputs.comment-node-id != ''
+        run: exit 1
 
       - name: Find comment by body-includes (requiring pagination)
         uses: ./
@@ -102,6 +110,8 @@ jobs:
           body-includes: search string 2
       - if: steps.fc5.outputs.comment-id != 703343658
         run: exit 1
+      - if: steps.fc5.outputs.comment-node-id != 'MDEyOklzc3VlQ29tbWVudDcwMzM0MzY1OA=='
+        run: exit 1
 
       - name: Find comment in merged PR
         uses: ./
@@ -110,6 +120,8 @@ jobs:
           issue-number: 4
           body-includes: search string 3
       - if: steps.fc6.outputs.comment-id != 703352283
+        run: exit 1
+      - if: steps.fc6.outputs.comment-node-id != 'MDEyOklzc3VlQ29tbWVudDcwMzM1MjI4Mw=='
         run: exit 1
 
       - name: Find the last comment by body-includes and author
@@ -122,6 +134,8 @@ jobs:
           direction: last
       - if: steps.fc7.outputs.comment-id != 771260630
         run: exit 1
+      - if: steps.fc7.outputs.comment-node-id != 'MDEyOklzc3VlQ29tbWVudDc3MTI2MDYzMA=='
+        run: exit 1
 
       - name: Find comment by body-regex
         uses: ./
@@ -130,6 +144,8 @@ jobs:
           issue-number: 1
           body-regex: '^.*search string 1.*$'
       - if: steps.fc8.outputs.comment-id != 620947762
+        run: exit 1
+      - if: steps.fc8.outputs.comment-node-id != 'MDEyOklzc3VlQ29tbWVudDYyMDk0Nzc2Mg=='
         run: exit 1
 
       - name: Find nth comment by body-includes
@@ -140,6 +156,8 @@ jobs:
           body-includes: comment 1
           nth: 2
       - if: steps.fc9.outputs.comment-id != 703343294
+        run: exit 1
+      - if: steps.fc9.outputs.comment-node-id != 'MDEyOklzc3VlQ29tbWVudDcwMzM0MzI5NA=='
         run: exit 1
 
   package:

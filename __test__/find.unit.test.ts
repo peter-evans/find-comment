@@ -16,6 +16,7 @@ describe('findCommentPredicate tests', () => {
         },
         {
           id: 1,
+          node_id: 'tornado',
           body: `Toto, I've a feeling we're not in Kansas anymore.`,
           user: {login: 'dorothy'},
           created_at: '2020-01-01T00:00:00Z'
@@ -37,6 +38,7 @@ describe('findCommentPredicate tests', () => {
         },
         {
           id: 1,
+          node_id: 'tornado',
           body: `Toto, I've a feeling we're not in Kansas anymore.`,
           user: {login: 'dorothy'},
           created_at: '2020-01-01T00:00:00Z'
@@ -60,6 +62,7 @@ describe('findCommentPredicate tests', () => {
         },
         {
           id: 1,
+          node_id: 'tornado',
           body: `Toto, I've a feeling we're not in Kansas anymore.`,
           user: {login: 'dorothy'},
           created_at: '2020-01-01T00:00:00Z'
@@ -81,6 +84,7 @@ describe('findCommentPredicate tests', () => {
         },
         {
           id: 1,
+          node_id: 'tornado',
           body: `Toto, I've a feeling we're not in Kansas anymore.`,
           user: {login: 'dorothy'},
           created_at: '2020-01-01T00:00:00Z'
@@ -104,6 +108,7 @@ describe('findCommentPredicate tests', () => {
         },
         {
           id: 1,
+          node_id: 'tornado',
           body: `Toto, I've a feeling we're not in Kansas anymore.`,
           user: {login: 'dorothy'},
           created_at: '2020-01-01T00:00:00Z'
@@ -125,6 +130,7 @@ describe('findCommentPredicate tests', () => {
         },
         {
           id: 1,
+          node_id: 'tornado',
           body: `Toto, I've a feeling we're not in Kansas anymore.`,
           user: {login: 'dorothy'},
           created_at: '2020-01-01T00:00:00Z'
@@ -148,6 +154,7 @@ describe('findCommentPredicate tests', () => {
         },
         {
           id: 1,
+          node_id: 'tornado',
           body: `Toto, I've a feeling we're not in Kansas anymore.`,
           user: {login: 'dorothy'},
           created_at: '2020-01-01T00:00:00Z'
@@ -169,6 +176,7 @@ describe('findCommentPredicate tests', () => {
         },
         {
           id: 1,
+          node_id: 'tornado',
           body: `Toto, I've a feeling we're not in Kansas anymore.`,
           user: {login: 'dorothy'},
           created_at: '2020-01-01T00:00:00Z'
@@ -190,6 +198,7 @@ describe('findCommentPredicate tests', () => {
         },
         {
           id: 1,
+          node_id: 'tornado',
           body: `Toto, I've a feeling we're not in Kansas anymore.`,
           user: {login: 'dorothy'},
           created_at: '2020-01-01T00:00:00Z'
@@ -213,6 +222,7 @@ describe('findCommentPredicate tests', () => {
         },
         {
           id: 1,
+          node_id: 'tornado',
           body: `Toto, I've a feeling we're not in Kansas anymore.`,
           user: {login: 'dorothy'},
           created_at: '2020-01-01T00:00:00Z'
@@ -234,6 +244,7 @@ describe('findCommentPredicate tests', () => {
         },
         {
           id: 1,
+          node_id: 'tornado',
           body: `Toto, I've a feeling we're not in Kansas anymore.`,
           user: {login: 'dorothy'},
           created_at: '2020-01-01T00:00:00Z'
@@ -255,6 +266,7 @@ describe('findCommentPredicate tests', () => {
         },
         {
           id: 1,
+          node_id: 'tornado',
           body: `Toto, I've a feeling we're not in Kansas anymore.`,
           user: {login: 'dorothy'},
           created_at: '2020-01-01T00:00:00Z'
@@ -276,6 +288,7 @@ describe('findCommentPredicate tests', () => {
         },
         {
           id: 1,
+          node_id: 'tornado',
           body: `Toto, I've a feeling we're not in Kansas anymore.`,
           user: {login: 'dorothy'},
           created_at: '2020-01-01T00:00:00Z'
@@ -299,6 +312,7 @@ describe('findCommentPredicate tests', () => {
         },
         {
           id: 1,
+          node_id: 'tornado',
           body: `Toto, I've a feeling we're not in Kansas anymore.`,
           user: {login: 'dorothy'},
           created_at: '2020-01-01T00:00:00Z'
@@ -313,30 +327,35 @@ describe('findMatchingComment tests', () => {
   const testComments = [
     {
       id: 1,
+      node_id: 'tornado',
       body: `Toto, I've a feeling we're not in Kansas anymore.`,
       user: {login: 'dorothy'},
       created_at: '2020-01-01T00:00:00Z'
     },
     {
       id: 2,
+      node_id: 'poppies',
       body: `You've always had the power, my dear. You just had to learn it for yourself.`,
       user: {login: 'glinda'},
       created_at: '2020-01-01T00:00:00Z'
     },
     {
       id: 3,
+      node_id: 'rubyslippers',
       body: `I'll get you, my pretty, and your little dog too!`,
       user: {login: 'wicked-witch'},
       created_at: '2020-01-01T00:00:00Z'
     },
     {
       id: 4,
+      node_id: 'auntieem',
       body: `Toto, I've a feeling we're not in Kansas anymore.`,
       user: {login: 'dorothy'},
       created_at: '2020-01-01T00:00:00Z'
     },
     {
       id: 5,
+      node_id: 'verybadwizard',
       body: `I'll get you, my pretty, and your little dog too!`,
       user: {login: 'wicked-witch'},
       created_at: '2020-01-01T00:00:00Z'

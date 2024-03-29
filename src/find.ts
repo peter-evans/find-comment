@@ -13,6 +13,7 @@ export interface Inputs {
 
 export interface Comment {
   id: number
+  node_id: string
   body?: string
   user: {
     login: string
