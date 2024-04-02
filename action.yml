@@ -24,6 +24,8 @@ inputs:
 outputs:
   comment-id:
     description: 'The id of the matching comment found.'
+  comment-node-id:
+    description: 'The GraphQL node id of the matching comment found.'
   comment-body:
     description: 'The body of the matching comment found.'
   comment-author:

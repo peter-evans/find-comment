@@ -25,11 +25,13 @@ async function run(): Promise<void> {
 
     if (comment) {
       core.setOutput('comment-id', comment.id.toString())
+      core.setOutput('comment-node-id', comment.node_id)
       core.setOutput('comment-body', comment.body)
       core.setOutput('comment-author', comment.user ? comment.user.login : '')
       core.setOutput('comment-created-at', comment.created_at)
     } else {
       core.setOutput('comment-id', '')
+      core.setOutput('comment-node-id', '')
       core.setOutput('comment-body', '')
       core.setOutput('comment-author', '')
       core.setOutput('comment-created-at', '')
