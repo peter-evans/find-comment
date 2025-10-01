@@ -12,7 +12,7 @@ The action will output the comment ID of the comment matching the search criteri
 
 ```yml
       - name: Find Comment
-        uses: peter-evans/find-comment@v3
+        uses: peter-evans/find-comment@v4
         id: fc
         with:
           issue-number: 1
@@ -23,7 +23,7 @@ The action will output the comment ID of the comment matching the search criteri
 
 ```yml
       - name: Find Comment
-        uses: peter-evans/find-comment@v3
+        uses: peter-evans/find-comment@v4
         id: fc
         with:
           issue-number: 1
@@ -34,7 +34,7 @@ The action will output the comment ID of the comment matching the search criteri
 
 ```yml
       - name: Find Comment
-        uses: peter-evans/find-comment@v3
+        uses: peter-evans/find-comment@v4
         id: fc
         with:
           issue-number: 1
@@ -46,7 +46,7 @@ The action will output the comment ID of the comment matching the search criteri
 
 ```yml
       - name: Find Comment
-        uses: peter-evans/find-comment@v3
+        uses: peter-evans/find-comment@v4
         id: fc
         with:
           issue-number: 1
@@ -57,7 +57,7 @@ The action will output the comment ID of the comment matching the search criteri
 
 ```yml
       - name: Find Comment
-        uses: peter-evans/find-comment@v3
+        uses: peter-evans/find-comment@v4
         id: fc
         with:
           issue-number: 1
@@ -69,7 +69,7 @@ The action will output the comment ID of the comment matching the search criteri
 
 ```yml
       - name: Find Comment
-        uses: peter-evans/find-comment@v3
+        uses: peter-evans/find-comment@v4
         id: fc
         with:
           issue-number: 1
@@ -101,7 +101,7 @@ e.g. If `comment-id` is an empty string `steps.fc.outputs.comment-id == 0` evalu
 
 ```yml
       - name: Find Comment
-        uses: peter-evans/find-comment@v3
+        uses: peter-evans/find-comment@v4
         id: fc
         with:
           issue-number: 1
